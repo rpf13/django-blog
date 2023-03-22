@@ -7,5 +7,6 @@ from django.urls import path
 # Since we use class based views, we need to add the .as_view method
 # at the end of it.
 urlpatterns = [
-    path('', views.PostList.as_view(), name='home')
+    path('', views.PostList.as_view(), name='home'),
+    path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
 ]
