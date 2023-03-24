@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.contrib.messages import constants as messages
 if os.path.isfile('env.py'):
     import env
 
@@ -61,6 +62,16 @@ SITE_ID = 1
 # redirected to the homepage, the root directory
 LOGIN_REDIRECT_URL = '/'
 LOOUT_REDIRECT_URL = '/'
+
+# Each message has a buit-in tag like, warning, error. We want to assign
+# these errors to different bootstrap classes in order to change colors
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-info',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+    }
 
 # reference the crispy_forms to use bootstrap template pack
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
