@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django_summernote',
+    'crispy_forms',
     'blog',
 ]
 
@@ -60,6 +61,9 @@ SITE_ID = 1
 # redirected to the homepage, the root directory
 LOGIN_REDIRECT_URL = '/'
 LOOUT_REDIRECT_URL = '/'
+
+# reference the crispy_forms to use bootstrap template pack
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # To prevent 500 errors during login and registration we add this line.
 # login and registration work without errors regardless of whether
