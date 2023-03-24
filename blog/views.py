@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 # We have to import the model and the related class
 # for which we want to create a view.
 from .models import Post
@@ -98,3 +99,26 @@ class PostDetail(View):
                 "comment_form": CommentForm()
             },
         )
+
+
+# We need another view for our likes.
+class PostLike(View):
+
+    # We want to achieve a toggling, if liked and clicked - unlike
+    # and vice versae
+    def post(self, request, slug, *args, **kwargs):
+        # first we get our relevant post
+        post = get_object_or_404(Post, slug=slug)
+        # we need a condition to check if the post is already liked
+        # if it is liked, we will remove the like and if not, we will add
+        # the like
+
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+
+        # we need to reload the post detail template that we can see
+        # the results. We use http.response.redirect and use the slug
+        # arguments in order to know which post to load.
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
